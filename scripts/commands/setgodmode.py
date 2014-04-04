@@ -85,6 +85,9 @@ def run(core, actor, target, commandString):
 	elif command == 'cust' and arg1 and arg2 and arg3:
 		obj = core.objectService.getObject(long(arg1))
 		obj.setCustomizationVariable(str(arg2), int(arg3))
+		
+	elif command == 'buff' and arg1:
+		core.buffService.addBuffToCreature(actor, str(arg1), actor)
 	
 	elif command == 'stealth':
 		if (actor.isInStealth()):
@@ -95,4 +98,9 @@ def run(core, actor, target, commandString):
 			actor.setInStealth(True)
 			actor.setRadarVisible(False)
 			actor.sendSystemMessage('You are now hidden from players. "Stealth Effect" is not implemented, however players still won\'t be able to see you. Type /setgodmode stealth again to be visible.', 0)
+	
+	elif command == 'holoEmote' and arg1:
+		playerObject.setHoloEmote('holoemote_' + arg1)
+		playerObject.setHoloEmoteUses(20)
+		actor.sendSystemMessage('Holo-Emote Generator set to ' + 'holoemote_' + arg1, 0)
 	return
